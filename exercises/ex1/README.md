@@ -12,7 +12,12 @@ After completing these steps you will have activated your first schema.
 
 2. In the Schema overview page, search for "COMPANY_REGISTRY_EXTRACT_STANDARD". Select the checkbox and click on "Enable". <br>![](/exercises/ex1/images/ex1_2.png)
 
-3. In the dialog, select version "1", and mark the checkbox "Activate" and click "Create". This will create a copy of the content and activate it so that you can use the schema afterwards for document processing. <br>![](/exercises/ex1/images/ex1_3.png)
+3. In the dialog fill in the values below and click create to create your own personal copy of the schema. Use the following values:
+   - **Schema Name:** <SAPID>_COMPANY_REGISTRY_EXTRACT (eg. I123456_COMPANY_REGISTRY_EXTRACT)
+   - **Schema Desciption:** <SAPID> Company Registry Extract standard
+   - **version**: 1
+   - **Activate**: Checked
+   ![](/exercises/ex1/images/ex1_3_V2.png)
 
 
 ## Exercise 1.2 Upload your first document
