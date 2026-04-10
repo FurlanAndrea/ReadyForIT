@@ -13,8 +13,8 @@ After completing these steps you will have activated your first schema.
 2. In the Schema overview page, search for "COMPANY_REGISTRY_EXTRACT_STANDARD". Select the checkbox and click on "Enable". <br>![](/exercises/ex1/images/ex1_2.png)
 
 3. In the dialog fill in the values below and click create to create your own personal copy of the schema. Use the following values:
-   - **Schema Name:** <SAPID>_COMPANY_REGISTRY_EXTRACT (eg. I123456_COMPANY_REGISTRY_EXTRACT)
-   - **Schema Desciption:** <SAPID> Company Registry Extract standard
+   - **Schema Name:** \<SAP-ID>_COMPANY_REGISTRY_EXTRACT (eg. I123456_COMPANY_REGISTRY_EXTRACT)
+   - **Schema Desciption:** \<SAP-ID> Company Registry Extract standard
    - **version**: 1
    - **Activate**: Checked
    ![](/exercises/ex1/images/ex1_3_V2.png)
@@ -24,10 +24,10 @@ After completing these steps you will have activated your first schema.
 
 After completing these steps you will have uploaded and reviewed your first document.
 
-1. Once you created your own schema in step 3. of the previous exercise, a new menu icon will appear in the navigation pane on the right. Click on it and select "Version 1". <br>![](/exercises/ex1/images/ex1_4.png)
+1. Once you created your own schema in step 3. of the previous exercise, a new menu icon will appear in the navigation pane on the right. Click on it and select "Version 1". <br>![](/exercises/ex1/images/ex1_4_v2.png)
 
 
-2. Now you reached the Worklist of your "COMPANY_REGISTRY_EXTRACT_STANDARD" schema. This list will show all documents that got processed with this schema.<br>
+2. Now you reached the Worklist of your "\<SAPID>_COMPANY_REGISTRY_EXTRACT_STANDARD" schema. This list will show all documents that got processed with this schema.<br>
 Since we haven't uploaded a document yet, the list is still empty. To start the processing, upload a document by clicking "Upload" or dragging and dropping a file into the Worklist. Pick the file ["Company Registry Extract House of Companies UK.pdf"](/exercises/documents/Company%20Registry%20Extract%20House%20of%20Companies%20UK.pdf) and upload it <br>![](/exercises/ex1/images/ex1_5.png)
 
 3. After the upload a new entry should appear in the Worklist. Wait a few seconds until the status changes to "Review Needed"
