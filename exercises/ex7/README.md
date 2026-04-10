@@ -16,10 +16,10 @@ The workflow will include three steps:
 
 For the classification, you will create a custom schema that classifies documents and stores the result (the document type).
 
-1. To create the schema, go to the schema UI and create a new schmea with name ***classification*** and document type ***Custom***.<br>![](/exercises/ex7/images/ex7_1_1.png)
+1. To create the schema, go to the schema UI and create a new schema with name ***\<SAP-ID>_classification*** and document type ***Custom***.<br>![](/exercises/ex7/images/ex7_1_1_v2.png)
 
-3. Navigate to the details of the newly created schema by clicking on it and then clicking on ***Version 1***.<br>
-Within the schema version details, go to the ***Entities*** tab and create the following entity structure:<br>
+2. Navigate to the details of the newly created schema by clicking on it and then clicking on ***Version 1***.<br>
+Within the schema version details, go to the ***Entities*** tab and create the following entity structure (do not copy the values):<br>
 
 | Label               | Name         | Entity Type | Data type |
 | ------------------- | ------------ | ----------- |-----------|
@@ -42,37 +42,34 @@ Finally, click on save and activate to save your changes and activate the schema
 
 <br>![](/exercises/ex7/images/ex7_1_4.png)
 
-4. Note the schema version ID. You will need it later when defining the workflow.
-   Find it in the browser URL after `SchemaVersions(`. Copy the value inside the parentheses.
+1. Note the schema name. You will need it later when defining the workflow.
 
-<br>![](/exercises/ex7/images/ex7_1_5.png)
-
-5. (Optional) Test the schema with sample documents to verify that it classifies them correctly.
+2. (Optional) Test the schema with sample documents to verify that it classifies them correctly.
 
 ## Step 2 - Create the Workflow
 
 Now that we have all prerequisites ready, we will create and design our workflow.
 
 1. Navigate to the ***Workflow*** UI via the navigation bar on the left and click on ***Create***.<br>![](/exercises/ex7/images/ex7_2_1.png)
-2. Specify a name and label for the workflow and click on ***Create***.<br>![](/exercises/ex7/images/ex7_2_2.png)
+2. Specify a name and label for the workflow and click on ***Create***.<br>![](/exercises/ex7/images/ex7_2_2_v2.png)
 3. After creation, the new workflow appears in the list of workflows. Click on it to navigate to the workflow.
 4. On the workflow page, you can find the design area on the bottom half of the page. The ***+*** element in the workflow between ***Start*** and ***End*** allows you to add additional steps to the workflow. Let us start by adding an ***Extraction*** step by clicking on ***+*** and ***Extraction***.<br>![](/exercises/ex7/images/ex7_2_3.png)
    
-6. Now you can click on the new extraction step to configure the details. An extraction step always references a schema version and processes the incoming document with this schema.<br>
+5. Now you can click on the new extraction step to configure the details. An extraction step always references a schema version and processes the incoming document with this schema.<br>
 Specify identifier as ***classify***, this is crucial since we will reference this identifier later in the workflow.<br>
-Finally fill the schema version ID, with the value you stored in the previous exercise (step 4.).
-<br>![](/exercises/ex7/images/ex7_2_3b.png)
+Finally fill the schema version ID, with the name of the schema you stored in the previous exercise (step 4.).
+<br>![](/exercises/ex7/images/ex7_2_3b_v2.png)
 
-7. After this classification, we would to have a condition with different branches depending on the classification result.<br> Click on the ***+*** after the ***Extraction*** step you added earlier and select ***Condition*** here.
-<br>![](/exercises/ex7/images/ex7_2_4.png)
+6. After this classification, we would to have a condition with different branches depending on the classification result.<br> Click on the ***+*** after the ***Extraction*** step you added earlier and select ***Condition*** here.
+<br>![](/exercises/ex7/images/ex7_2_4_v2.png)
 
-8. Click on the condition to configure it. Specify the identifier as ***document_type***. Then click on the edit icon on the first branch to configure the branch.
+7. Click on the condition to configure it. Specify the identifier as ***document_type***. Then click on the edit icon on the first branch to configure the branch.
 <br>![](/exercises/ex7/images/ex7_2_5.png)
 
-9. Click on ***Edit***
+8. Click on ***Edit***
 <br>![](/exercises/ex7/images/ex7_2_6.png)
 
-10. In the branch edit dialog. Specify a label and add the following expression and click on ***Apply***:
+9. In the branch edit dialog. Specify a label and add the following expression and click on ***Apply***:
 > classify.fetchValue(***"document_type"***) == ***"bol"***
 
 ***classify*** here references the previous workflow step. ***document_type*** references the field from the schema and ***bol*** the value of this field. Therefore, it is crucial to follow the exact naming in this exercise.
@@ -92,7 +89,7 @@ For each of the branches that reference one of our document types, add an ***Ext
 
 14. Fill each of these extraction steps with a schema version ID that matches a schema corresponding to the document type.<br>If you followed all exercises you should have one schema created for each document type.<br>
 To get the version IDs, use a second browser tab, navigate to the schema UI and copy the version ID from the URL of each schema as done in the previous section of this exercise.
-<br>![](/exercises/ex7/images/ex7_2_11.png)
+<br>![](/exercises/ex7/images/ex7_2_11_v2_1.png)<br>![](/exercises/ex7/images/ex7_2_11_v2_2.png)
 
 ## Step 3 - Test your workflow
 
