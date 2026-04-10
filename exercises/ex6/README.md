@@ -3,6 +3,8 @@
 In the previous exercises, some extracted information was incorrect and required manual correction. To avoid repeating these corrections, the system can learn from them using the **Instant Learning** feature.
 This exercise explains how to enable Instant Learning and train the system through feedback.
 
+**IMPORTANT:** As the system is used by all people the settings might already have been done.
+
 ## Step 1 - Activate Instant Learning
 
 1. Open the **Settings** menu and select **Manage Configuration**.
