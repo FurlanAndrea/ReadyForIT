@@ -3,7 +3,7 @@
 In the following exercise, we want to process Bill of Lading documents. Since this document type is not yet covered by any of the SAP content schemas, we will create our own custom schema.<br>
 
 1. To create the custom schema, go to the schema UI and click on "Create schema"<br>![](/exercises/ex5/images/ex5_1.png)
-2. In the dialog, fill out the mandatory information and set the Document Type to "Custom"<br>![](/exercises/ex5/images/ex5_2.png) <br>
+2. In the dialog, fill out the mandatory information and set the Document Type to "Custom". Be user to user your own \<SAP-ID>.<br>![](/exercises/ex5/images/ex5_2_v2.png) <br>
 3. Once the schema got created, click on it and then click on version 1 to open the schema details.<br>In the details view, go to the "Entities" tab and click on "Add" and "Add Group". In the dialog add name and label as shown below<br>![](/exercises/ex5/images/ex5_3.png)
 
 4. Now click on "Add" again and select "Add Field".<br>Fill out the mandatory information and make sure to set select parent to "Group" and select the previously created group.<br>![](/exercises/ex5/images/ex5_4.png)
@@ -11,7 +11,7 @@ In the following exercise, we want to process Bill of Lading documents. Since th
 5. Now create a table by clicking on "Add" and "Add Table".<br>![](/exercises/ex5/images/ex5_5.png)
 
 6. Following this, add a field to the table by clicking "Add Field" and selecting the table as parent.<br>![](/exercises/ex5/images/ex5_6.png)
-7. Repeat this for all the entities shown in the table below, make sure to always select the correct parents (either the group or one of the two tables):
+7. Repeat this for all the entities shown in the table below (do not copy values as it might not work properly then), make sure to always select the correct parents (either the group or one of the two tables):
    
 | Label               | Name         | Entity Type | Data Type |
 | ------------------- | ------------ | ----------- | --------- |
