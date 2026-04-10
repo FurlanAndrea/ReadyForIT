@@ -5,11 +5,16 @@ In this exercise, a custom field will be added to extract that information autom
 
 ---
 
-1. Open the schema screen, select **Version 1**, and click **Deactivate** to allow editing. <br>![](/exercises/ex3/images/ex3_1.png)
+1. Open the schema screen, filter on schema name using your **"SAP ID"**, select **Version 1**, and click **Deactivate** to allow editing. <br>![](/exercises/ex3/images/ex3_1.png)
 
 2. To configure the custom field, go to the ***Entities*** tab, click on ***Add***, and select ***Add Field***. <br>![](/exercises/ex3/images/ex3_2.png)
 
 3. Fill the dialog with the information as shown in the image, and click on ***Add***. <br>![](/exercises/ex3/images/ex3_3.png)
+   - **Name:** InternationalShareholders
+   - **Label:** International Shareholders 
+   - **Select Parent:** Group
+   - **Group:** company
+   - **Data type:** String
    
 4. Finally, we want to configure dedicated processing instructions so that the field matches our use case. To do this, navigate to the ***Processing Settings*** tab and click on ***Edit***.
 <br>Then search for our newly added field and fill the ***Processing Instructions*** of this field with the following text:
