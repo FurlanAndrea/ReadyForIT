@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAP Document AI – Channels & Extensions Flow</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: '72', 'SAP72', Arial, sans-serif;
+    background: #F0F2F5;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .slide {
+    background: #FFFFFF;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 48px 52px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    border: 1px solid #E4E8EE;
+  }
+
+  /* Header */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #0070F2;
+    margin-bottom: 8px;
+  }
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1A2636;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #6B7A8D;
+    margin-bottom: 40px;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    padding: 14px 18px;
+    background: #F8F9FB;
+    border-radius: 10px;
+    border: 1px solid #E4E8EE;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #4A6380;
+    font-weight: 600;
+  }
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* Section label */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8A9BB5;
+    margin-bottom: 16px;
+  }
+
+  /* ── DIAGRAM WRAPPER ── */
+  .diagram { position: relative; margin-bottom: 48px; }
+
+  /* ── SWIM LANES ── */
+  .lanes {
+    display: grid;
+    grid-template-columns: 180px 1fr 180px;
+    gap: 0;
+    position: relative;
+  }
+
+  .lane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    padding: 0 12px;
+    position: relative;
+  }
+
+  .lane-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 7px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+  }
+  .lane-label.external { background: #F0F2F5; color: #6B7A8D; border: 1px solid #E4E8EE; }
+  .lane-label.core     { background: #0070F2; color: #FFFFFF; }
+  .lane-label.target   { background: #F0F2F5; color: #6B7A8D; border: 1px solid #E4E8EE; }
+
+  /* vertical spine */
+  .lane.core::before {
+    content: '';
+    position: absolute;
+    top: 48px; bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: linear-gradient(180deg, #0070F2 0%, #B6E8D4 100%);
+    opacity: 0.15;
+    z-index: 0;
+  }
+
+  /* ── NODES ── */
+  .node {
+    position: relative;
+    z-index: 1;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 0;
+    line-height: 1.4;
+  }
+  .node-sub { font-size: 10px; font-weight: 400; color: inherit; opacity: 0.8; margin-top: 3px; }
+
+  .node-source   { background: #F0F4FF; border: 1.5px solid #B3CEFF; color: #1A4BAA; }
+  .node-inbound  { background: #E8F4FF; border: 1.5px solid #7EC3FF; color: #0057C2; }
+  .node-core     { background: #0070F2; border: 1.5px solid #0057C2; color: #FFFFFF; }
+  .node-extract  { background: #EEF4FF; border: 1.5px solid #A0C0FF; color: #1A4BAA; }
+  .node-workflow { background: #F5EEFF; border: 1.5px solid #C4A0FF; color: #5B1FAA; }
+  .node-outbound { background: #FFF4E0; border: 1.5px solid #FFCC77; color: #8A5200; }
+  .node-extension{ background: #FFF0F0; border: 1.5px solid #FFAAAA; color: #AA1F1F; }
+  .node-target   { background: #F2FBF7; border: 1.5px solid #7FD9B0; color: #007A52; }
+  .node-result   { background: #F2FBF7; border: 1.5px solid #7FD9B0; color: #007A52; }
+
+  /* ── ARROWS (vertical, within lane) ── */
+  .arrow-down {
+    width: 2px;
+    height: 28px;
+    background: #C8D4E0;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #C8D4E0;
+  }
+  .arrow-down.blue  { background: #0070F2; }
+  .arrow-down.blue::after  { border-top-color: #0070F2; }
+  .arrow-down.green { background: #00A86B; }
+  .arrow-down.green::after { border-top-color: #00A86B; }
+  .arrow-down.orange{ background: #E08000; }
+  .arrow-down.orange::after{ border-top-color: #E08000; }
+  .arrow-down.red   { background: #CC2222; }
+  .arrow-down.red::after   { border-top-color: #CC2222; }
+
+  /* ── HORIZONTAL CONNECTORS (SVG overlay) ── */
+  .connector-layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+
+  /* ── DIFF SECTION ── */
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .diff-card {
+    border-radius: 12px;
+    padding: 22px 22px 18px;
+    border: 1.5px solid #E4E8EE;
+  }
+  .diff-card.outbound  { border-color: #FFCC77; background: #FFFBF0; }
+  .diff-card.extension { border-color: #FFAAAA; background: #FFF6F6; }
+
+  .diff-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .diff-title.outbound  { color: #8A5200; }
+  .diff-title.extension { color: #AA1F1F; }
+
+  .diff-desc {
+    font-size: 12px;
+    color: #6B7A8D;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .diff-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .diff-steps li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    color: #2C3E50;
+    line-height: 1.4;
+  }
+  .step-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-num.outbound  { background: #FFCC77; color: #8A5200; }
+  .step-num.extension { background: #FFAAAA; color: #AA1F1F; }
+
+  .diff-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-top: 12px;
+  }
+  .diff-tag.outbound  { background: #FFCC77; color: #8A5200; }
+  .diff-tag.extension { background: #FFAAAA; color: #AA1F1F; }
+
+  /* footer */
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #E4E8EE;
+    padding-top: 20px;
+    margin-top: 8px;
+  }
+  .footer-note { font-size: 12px; color: #8A9BB5; }
+  .sap-logo { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: #8A9BB5; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- Header -->
+  <div class="eyebrow">SAP Document AI — Workspace</div>
+  <div class="title">Inbound &amp; Outbound Channels + Extensions</div>
+  <div class="subtitle">How documents flow through the system and where channels &amp; extensions intercept the process</div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#7EC3FF;"></div> Inbound Channel</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#0070F2;"></div> Document AI Core</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#C4A0FF;"></div> Workflow Node</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FFCC77;"></div> Outbound Channel (Notification)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FFAAAA;"></div> Outbound Channel (Extension / Callback)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7FD9B0;"></div> Target / External System</div>
+  </div>
+
+  <!-- Main Diagram -->
+  <div class="section-label">Document Processing Flow</div>
+  <div class="diagram">
+    <div class="lanes" id="lanes">
+
+      <!-- LEFT: External Sources -->
+      <div class="lane">
+        <div class="lane-label external">External Sources</div>
+
+        <div class="node node-source" id="email-src">
+          📧 Email (Outlook)
+          <div class="node-sub">Unread emails polled<br>every 5 min (max 100)</div>
+        </div>
+        <div class="arrow-down blue"></div>
+        <div class="node node-inbound" id="inbound-ch">
+          ⬇ Inbound Channel
+          <div class="node-sub">Microsoft Outlook<br>via Azure AD / OAuth2</div>
+        </div>
+
+        <div style="height:180px;"></div>
+
+        <div class="node node-source" id="api-src">
+          🔌 API / Manual Upload
+          <div class="node-sub">REST or OData V4<br>direct document upload</div>
+        </div>
+
+      </div>
+
+      <!-- CENTRE: Document AI Core -->
+      <div class="lane core">
+        <div class="lane-label core">SAP Document AI — Workspace</div>
+
+        <div class="node node-core" id="doc-receive">
+          Document Received
+          <div class="node-sub" style="color:rgba(255,255,255,0.8);">Stored in workspace</div>
+        </div>
+        <div class="arrow-down blue"></div>
+
+        <div class="node node-workflow" id="wf-split">
+          ⚙ Workflow: Email Split
+          <div class="node-sub">Separates email body<br>from attachments</div>
+        </div>
+        <div class="arrow-down"></div>
+
+        <div class="node node-workflow" id="wf-classify">
+          ⚙ Workflow: Classification
+          <div class="node-sub">Identifies document type<br>(invoice, PO, custom…)</div>
+        </div>
+        <div class="arrow-down"></div>
+
+        <div class="node node-workflow" id="wf-extract">
+          ⚙ Workflow: Extraction
+          <div class="node-sub">ML model or Generative AI<br>extracts fields &amp; line items</div>
+        </div>
+        <div class="arrow-down"></div>
+
+        <div class="node node-extract" id="doc-ready">
+          ✅ Extraction Result Ready
+          <div class="node-sub">Document reaches<br>defined status</div>
+        </div>
+        <div class="arrow-down"></div>
+
+        <!-- Fork: notification vs extension -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;position:relative;z-index:1;">
+          <div>
+            <div class="node node-outbound" id="outbound-notif">
+              🔔 Outbound Channel - Notification
+              <div class="node-sub" style="color:#8A5200;">Status update pushed<br>with optional payload</div>
+            </div>
+          </div>
+          <div>
+            <div class="node node-extension" id="outbound-ext">
+              🔁 Outbound Channel - Extension / Callback
+              <div class="node-sub" style="color:#AA1F1F;">Calls target system<br>waits for action &amp; response</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Target Systems -->
+      <div class="lane">
+        <div class="lane-label target">Target Systems</div>
+
+        <div style="height:348px;"></div>
+
+        <div class="node node-target" id="target-notif">
+          📨 Target System
+          <div class="node-sub">Receives status notification<br>No response needed</div>
+        </div>
+
+        <div style="height:20px;"></div>
+
+        <div class="node node-target" id="target-ext">
+          🔄 Target System
+          <div class="node-sub">Receives callback<br>Performs action<br>Returns response to Doc AI</div>
+        </div>
+
+        <div class="arrow-down green" style="transform:rotate(180deg);margin-top:8px;"></div>
+
+        <div class="node node-result" id="result">
+          ✅ Doc AI continues
+          <div class="node-sub">Processing resumes<br>based on response</div>
+        </div>
+
+      </div>
+
+    </div><!-- /lanes -->
+
+    <!-- SVG connectors overlay -->
+    <svg class="connector-layer" id="svg-layer" xmlns="http://www.w3.org/2000/svg"></svg>
+
+  </div><!-- /diagram -->
+
+  <!-- Difference Explanation -->
+  <div class="section-label">Key Differences: Outbound Notification vs. Extension (Callback)</div>
+  <div class="diff-grid">
+
+    <div class="diff-card outbound">
+      <div class="diff-title outbound">🔔 Outbound Channel — Notification</div>
+      <div class="diff-desc">
+        A one-way push. When a document reaches a defined status, Document AI sends a notification to the target system — fire and forget.
+      </div>
+      <ul class="diff-steps">
+        <li><div class="step-num outbound">1</div> Document reaches a defined status (e.g. extraction complete)</li>
+        <li><div class="step-num outbound">2</div> Outbound channel is triggered automatically</li>
+        <li><div class="step-num outbound">3</div> HTTP POST sent to target URL (with optional extraction results in payload)</li>
+        <li><div class="step-num outbound">4</div> Document AI does <strong>not</strong> wait for a response — processing is complete</li>
+        <li><div class="step-num outbound">5</div> Target system handles the notification independently</li>
+      </ul>
+      <div class="diff-tag outbound">Fire &amp; forget — no response expected</div>
+    </div>
+
+    <div class="diff-card extension">
+      <div class="diff-title extension">🔁 Outbound Channel — Extension (Callback)</div>
+      <div class="diff-desc">
+        A two-way intercept. Document AI calls an external system mid-processing, waits for it to act and respond, then continues the workflow based on the result.
+      </div>
+      <ul class="diff-steps">
+        <li><div class="step-num extension">1</div> Workflow reaches an extension node during processing</li>
+        <li><div class="step-num extension">2</div> Document AI sends a callback to the configured outbound channel (target system)</li>
+        <li><div class="step-num extension">3</div> Target system performs its action (e.g. validation, enrichment, approval)</li>
+        <li><div class="step-num extension">4</div> Target system responds to Document AI with result</li>
+        <li><div class="step-num extension">5</div> Document AI resumes processing based on the response</li>
+      </ul>
+      <div class="diff-tag extension">Bidirectional — Document AI waits for response</div>
+    </div>
+
+  </div>
+
+  <!-- BTP Destination note -->
+  <div style="margin-top:20px;padding:14px 18px;background:#F5F8FF;border:1px solid #B3CEFF;border-radius:10px;font-size:12px;color:#2C3E50;line-height:1.6;">
+    <strong style="color:#0057C2;">SAP BTP Destinations</strong> &nbsp;·&nbsp;
+    Both inbound and outbound channels use SAP BTP Destinations for connectivity. Destination type is always HTTP. Proxy can be <strong>Internet</strong> (external REST/SOAP) or <strong>OnPremise</strong> (via Cloud Connector). Authentication options: NoAuth, Basic, Client Certificate, OAuth2 Client Credentials, OAuth2 Technical User Propagation. Destination names are auto-prefixed with <code style="background:#E0EEFF;padding:1px 5px;border-radius:3px;">DOC_AI_</code>.
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-note">SAP BTP · SAP Document AI Workspace · Source: SAP Help Portal · 2026</div>
+    <div class="sap-logo">SAP</div>
+  </div>
+
+</div>
+</body>
+</html>
