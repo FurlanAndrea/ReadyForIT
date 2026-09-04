@@ -1,11 +1,11 @@
 # Accessing the SAP Document AI User Interface
 
 ## Creation of objects
-As multiple people are working in the same environment some objects neeed to be made unique. Please use your SAP ID number as an prefix for this (eg. I123456). This is also mentioned in the documentation, where there is mentioned <SAPID> this means it is a place holder for your personal ID.
+As multiple people are working in the same environment some objects neeed to be made unique. Please use your SAP ID number as an prefix for this (eg. USERUNO). This is also mentioned in the documentation, where there is mentioned <SAPID> this means it is a place holder for your personal ID.
 
 ## Access the SAP Document AI User Interface
 
-Click [click here](https://emea-ai-workshop-5y32ww8y.eu10.doc.cloud.sap/ui) to access the Document AI UI.
+Click [click here](https://it-sales-specialist-hands-on.eu10.doc.cloud.sap/workspace) to access the Document AI UI.
 
 
 ## Sample Documents
