@@ -1,11 +1,4 @@
-# AI162 - Get a hands-on experience with SAP Document AI
-[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/teched2025-AI162)](https://api.reuse.software/info/github.com/SAP-samples/teched2025-AI162)
-## Description
-
-This repository contains the material for the SAP TechEd 2025 session called AI162 - Get a hands-on experience with SAP Document AI.  
-
-
-## Overview
+# Overview
 
 This session introduces attendees to [SAP Document AI](https://www.sap.com/products/artificial-intelligence/ai-foundation-os/document-ai.html), SAP's intelligent document processing solution.
 
