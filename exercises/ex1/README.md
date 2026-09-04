@@ -13,7 +13,7 @@ After completing these steps you will have activated your first schema.
 2. In the Schema overview page, search for "COMPANY_REGISTRY_EXTRACT_STANDARD". Select the checkbox and click on "Enable". <br>![](/exercises/ex1/images/ex1_2.png)
 
 3. In the dialog fill in the values below and click create to create your own personal copy of the schema. Use the following values:
-   - **Schema Name:** \<SAP-ID>_COMPANY_REGISTRY_EXTRACT (eg. I123456_COMPANY_REGISTRY_EXTRACT)
+   - **Schema Name:** \<SAP-ID>_COMPANY_REGISTRY_EXTRACT (eg. USERCENTO_COMPANY_REGISTRY_EXTRACT)
    - **Schema Desciption:** \<SAP-ID> Company Registry Extract standard
    - **version**: 1
    - **Activate**: Checked

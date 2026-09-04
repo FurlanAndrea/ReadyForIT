@@ -51,7 +51,7 @@ Finally, click on save and activate to save your changes and activate the schema
 Now that we have all prerequisites ready, we will create and design our workflow.
 
 1. Navigate to the ***Workflow*** UI via the navigation bar on the left and click on ***Create***.<br>![](/exercises/ex7/images/ex7_2_1.png)
-2. Specify a name and label for the workflow and click on ***Create***.<br>![](/exercises/ex7/images/ex7_2_2_v2.png)
+2. Specify a name and label for the workflow and click on ***Create***. Use your <SAP-ID> (eg. USERCENTO_my_first_wf).<br>![](/exercises/ex7/images/ex7_2_2_v2.png)
 3. After creation, the new workflow appears in the list of workflows. Click on it to navigate to the workflow.
 4. On the workflow page, you can find the design area on the bottom half of the page. The ***+*** element in the workflow between ***Start*** and ***End*** allows you to add additional steps to the workflow. Let us start by adding an ***Extraction*** step by clicking on ***+*** and ***Extraction***.<br>![](/exercises/ex7/images/ex7_2_3.png)
    
